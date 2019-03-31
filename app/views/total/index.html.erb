@@ -1,0 +1,68 @@
+<div style="height: 70px">
+  <img src="/assets/barmian-b3e67428be3190c600e48cb54bd48e8f23372da6e52af420f234b5b4065d5bf4.png" style="padding: 20px; float: left">
+  <h1 style="padding: 5px; float: left">金佰川IT综合服务平台</h1>
+</div>
+<div style="height: 200px"></div>
+<% if current_user %>
+  <div class="container" >
+    <div class="row" >
+      <div class="col-lg-12">
+        <div class="col-lg-4">
+          <%= image_tag("itfw.png") %>
+          <div style="height: 10px"></div>
+          <div style="padding-left: 60px;padding-bottom: 10px">
+          <% if current_number != 11 %>
+            <%= link_to 'IT服务平台点击进入', list_path,class:"btn btn-info" %>
+          <% end %>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <%= image_tag("car.png") %>
+          <div style="height: 10px"></div>
+          <div style="padding-left: 60px;padding-bottom: 10px">
+            <% if current_number == 11 %>
+              <%= link_to '车辆管理系统点击进入', works_path,class:"btn btn-danger" %>
+            <% end %>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <%= image_tag("zichan.png") %>
+          <div style="height: 10px"></div>
+          <div style="padding-left: 60px;padding-bottom: 10px">
+                <%= link_to '资产管理平台建设中．．．', works_path,class:"btn btn-default disabled" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% else %>
+    <div class="container">
+      <div class="row"  >
+        <div class="col-lg-12">
+          <div class="col-lg-4">
+            <%= image_tag("itfw.png") %>
+            <div style="height: 10px"></div>
+            <div style="padding-left: 60px;padding-bottom: 10px">
+              <%= link_to 'IT服务平台点击进入', list_path,class:"btn btn-info" %>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <%= image_tag("car.png") %>
+            <div style="height: 10px"></div>
+            <div style="padding-left: 60px;padding-bottom: 10px">
+              <%= link_to '车辆管理平台点击进入', works_path,class:"btn btn-danger" %>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <%= image_tag("zichan.png") %>
+            <div style="height: 10px"></div>
+            <div style="padding-left: 60px;padding-bottom: 10px">
+              <%= link_to '资产管理平台建设中．．．', works_path,class:"btn btn-default disabled" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+<% end %>
+<div style="height: 200px"></div>
+

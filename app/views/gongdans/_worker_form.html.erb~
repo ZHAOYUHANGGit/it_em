@@ -1,0 +1,152 @@
+<div class="row">
+  <div class="col-lg-6">
+    <legend class="text-muted">工单信息-information</legend>
+    <div class="form-group">
+      <label class="col-lg-5 control-label text-info">任务工单号:</label>
+      <label class="control-label"><strong><%= @gongdan.number %></strong></label>
+    </div>
+    <div class="form-group">
+      <label class="col-lg-5 control-label text-info">任务工单主题:</label>
+      <label class="control-label"><strong><%= @gongdan.title %></strong></label>
+    </div>
+    <div class="form-group">
+      <label class="col-lg-5 control-label text-info">任务工单建单人:</label>
+      <label class="control-label"><strong><%= @gongdan.creator %></strong></label>
+    </div>
+    <div class="form-group">
+      <label class="col-lg-5 control-label text-info">服务需求部门:</label>
+      <label class="control-label"><strong><%= @gongdan.department %></strong></label>
+    </div>
+    <div class="form-group">
+      <label class="col-lg-5 control-label text-info">服务需求联系人:</label>
+      <label class="control-label"><strong><%= @gongdan.demander %></strong></label>
+    </div>
+    <div class="form-group">
+      <label class="col-lg-5 control-label text-info">工单紧急程度:</label>
+      <label class="control-label"><strong><%= @gongdan.emergent %></strong></label>
+    </div>
+    <div class="form-group">
+      <label class="col-lg-5 control-label text-info">任务工单描述:</label>
+      <label class="control-label"><strong><%= @gongdan.description %></strong></label>
+    </div>
+    <div class="form-group">
+      <label class="col-lg-5 control-label text-info">工单处理组别:</label>
+      <label class="control-label"><strong><%= @gongdan.appoint_department %></strong></label>
+    </div>
+    <div class="form-group">
+      <label class="col-lg-5 control-label text-info">任务工单处理人:</label>
+      <label class="control-label"><strong><%= @gongdan.appoint_worker %></strong></label>
+    </div>
+    <div class="form-group">
+      <label class="col-lg-5 control-label text-info">工单协助处理人:</label>
+      <label class="control-label"><strong><%= @gongdan.helpers %></strong></label>
+    </div>
+    <% if !@gongdan.image.blank? %>
+      <div class="form-group">
+        <label class="col-lg-5 control-label text-info">故障截图:</label>
+        <button class="btn btn-info " type="button">查看</button>
+        <div class="modal" id="mymodal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">截图</h4>
+              </div>
+              <div class="modal-body">
+                <%= image_tag(@gongdan.image.url(:big)) if @gongdan.image %>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </br>
+    <% end %>
+    <script>
+        $(function(){
+            $(".btn-info").click(function(){
+                $("#mymodal").modal("toggle");
+            });
+        });
+    </script>
+    <div class="form-group">
+      <%= link_to '<i class="icon-share-alt"></i>详情'.html_safe, @gongdan, class: "btn btn-info btn-block" %>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <%= form_for(@gongdan) do |f| %>
+      <% if @gongdan.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@gongdan.errors.count, "error") %> prohibited this gongdan from being saved:</h2>
+            <ul>
+              <% @gongdan.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+      <% end %>
+      <fieldset>
+      <legend class="text-primary">完成或移交－assignment</legend>
+      <%= f.hidden_field :finish_time %>
+        <div class="form-group has-success">
+          <label class="control-label" for="inputWarning">工单状态</label>
+          <%= f.select :state, "#{render 'shared/pa/worker_state'}".html_safe, {}, {class: "form-control"} %>
+        </div>
+
+        <div class="form-group has-success">
+          <label class="control-label" for="inputWarning">处理过程描述</label>
+          <%= f.text_area :processing_procedure, class: "form-control", id: "inputProcessingProcedure", placeholder: "处理过程描述" %>
+        </div>
+        <div class="form-group has-success">
+          <label class="control-label" for="inputWarning">问题属性</label>
+          <%= f.select :category, "#{render 'shared/pa/category'}".html_safe, {}, {class: "form-control"} %>
+        </div>
+        <div class="form-group has-success">
+          <label class="control-label" for="inputWarning">截图上传</label>
+          <%= image_tag(@gongdan.avatar_url(:big)) if @gongdan.avatar? %>
+          <%= f.file_field :avatar %>
+          <%= f.hidden_field :avatar_cache %>
+          <span class="help-block">如果有故障处理截图请,请上传!</span>
+        </div>
+        <div class="form-group has-success">
+          <label class="col-lg-7 control-label1">是否加入经验库</label>
+          <div class="col-lg-10">
+            <div class="radio">
+              <label>
+                <%= f.radio_button(:experience_base, "no") %>否
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <%= f.radio_button(:experience_base, "yes") %>是
+              </label>
+            </div>
+          </div>
+        </div>
+        <br/>
+        <div class="form-group">
+          <div class="col-lg-10">
+            <input class="btn btn-primary" type="submit" onclick="return validate();" value="提交" name="commit">
+            <%= link_to '返回', list_path, class: "btn btn-default" %>
+          </div>
+        </div>
+
+    </fieldset>
+    <% end %>
+  </div>
+</div>
+<script type="text/javascript">
+    function validate() {
+        if (gongdan_category.value == '') {
+            alert("请选择问题属性!");
+            return false;
+        }else{
+            return true;
+        };
+    }
+</script>
+
+
+
+

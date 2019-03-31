@@ -1,0 +1,88 @@
+
+
+
+
+<%= simple_form_for @user,html: {class: "form-horizontal"} do |f| %>
+  <fieldset>
+
+    <% if @user.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+          <ul>
+            <% @user.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="form-group">
+       <label for="inputName" class="col-lg-2 control-label">用户名</label>
+       <div class="col-lg-10">
+          <%= f.text_field :name, class: "form-control", id: "inputTopic", placeholder: "用户名" %>
+       </div>
+    </div>
+    <div class="form-group">
+      <label for="inputEmail" class="col-lg-2 control-label">Email</label>
+      <div class="col-lg-10">
+        <%= f.text_field :email, class: "form-control", id: "inputEmail", placeholder: "Email" %>
+      </div>
+    </div>
+
+    <% if can? :manager, Permission %>
+    <div class="form-group">
+      <label for="select" class="col-lg-2 control-label">所在区域</label>
+      <div class="col-lg-10">
+        <%= f.select :area, "#{render 'shared/pa/area'}".html_safe, {}, class: "form-control" %>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="select" class="col-lg-2 control-label">所在部门</label>
+      <div class="col-lg-10">
+        <%= f.select :department, "#{render 'shared/pa/department'}".html_safe, {}, class: "form-control" %>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="select" class="col-lg-2 control-label">所在组别</label>
+      <div class="col-lg-10">
+        <%= f.select :appoint_department, "#{render 'shared/pa/worker_appoint_departement'}".html_safe, {}, class: "form-control" %>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="select" class="col-lg-2 control-label">角色选择</label>
+      <div class="col-lg-10">
+        <%= f.select :number, "#{render 'shared/pa/user_count'}".html_safe, {}, class: "form-control" %>
+      </div>
+    </div>
+    <% end %>
+    <div class="form-group">
+      <label for="inputPassword" class="col-lg-2 control-label">密码</label>
+      <div class="col-lg-10">
+        <%= f.password_field :password, class: "form-control", id: "inputPassword", placeholder: "密码" %>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputPassword" class="col-lg-2 control-label">再次输入密码</label>
+      <div class="col-lg-10">
+        <%= f.password_field :password_confirmation, class: "form-control", id: "inputPassword", placeholder: "密码" %>
+      </div>
+    </div>
+
+    <% if can? :manager, Gongdan %>
+        <div class="form-group">
+          <label for="inputPermission" class="col-lg-2 control-label">添加权限</label>
+          <div class="col-lg-10">
+            <%= f.association :permissions, label_method: :description, collection: Permission.all.order('description ASC'),
+                              label:" .   ",as: :check_boxes, :include_blank => false %>
+          </div>
+        </div>
+    <% end %>
+    <div class="form-group">
+      <div class="col-lg-10 col-lg-offset-2">
+        <%= f.submit "提交", class: "btn btn-primary " %>
+        <%= link_to '返回',  users_path, class: "btn btn-default" %>
+      </div>
+    </div>
+  </fieldset>
+<% end %>

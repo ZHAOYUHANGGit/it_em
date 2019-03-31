@@ -1,0 +1,97 @@
+
+    <%= simple_form_for @maintain,html: {class: "form-horizontal"} do |f| %>
+        <%= f.error_notification %>
+        <%= f.hidden_field :area %>
+        <% if current_user.area == "青海区" %>
+          <div class="form-group ">
+            <label for="inputName" class="col-lg-2 control-label">车牌号</label>
+            <div class="col-lg-8">
+              <%= f.select :car_number,"#{render 'shared/manage_cars/car_number'}".html_safe, {},  class: "form-control"  %>
+            </div>
+          </div>
+        <% end %>
+        <% if current_user.area == "成都区" %>
+          <div class="form-group ">
+            <label for="inputName" class="col-lg-2 control-label">车牌号</label>
+            <div class="col-lg-8">
+              <%= f.text_field :car_number, class: "form-control"  %>
+            </div>
+          </div>
+        <% end %>
+        <% if current_user.area == "西宁地区" %>
+          <div class="form-group ">
+           <label for="inputName" class="col-lg-2 control-label">车牌号</label>
+           <div class="col-lg-8">
+             <%= f.select :car_number,"#{render 'shared/manage_cars/car_namxn'}".html_safe, {},  class: "form-control"  %>
+           </div>
+         </div>
+        <% end %>
+        <% if current_user.area == "西宁配送" %>
+            <div class="form-group ">
+              <label for="inputName" class="col-lg-2 control-label">车牌号</label>
+              <div class="col-lg-8">
+                <%= f.select :car_number,"#{render 'shared/manage_cars/car_numxnps'}".html_safe, {},  class: "form-control"  %>
+              </div>
+           </div>
+        <% end %>
+        <% if current_user.area == "格尔木地区" %>
+            <div class="form-group ">
+              <label for="inputName" class="col-lg-2 control-label">车牌号</label>
+              <div class="col-lg-8">
+                <%= f.select :car_number,"#{render 'shared/manage_cars/car_numgem'}".html_safe, {},  class: "form-control"  %>
+              </div>
+            </div>
+        <% end %>
+        <% if current_user.area == "甘宁区" %>
+            <div class="form-group ">
+              <label for="inputName" class="col-lg-2 control-label">车牌号</label>
+              <div class="col-lg-8">
+                <%= f.select :car_number,"#{render 'shared/manage_cars/car_numgn'}".html_safe, {},  class: "form-control"  %>
+              </div>
+            </div>
+        <% end %>
+        <% if current_user.area == "广州区" %>
+            <div class="form-group ">
+              <label for="inputName" class="col-lg-2 control-label">车牌号</label>
+              <div class="col-lg-8">
+                <%= f.select :car_number,"#{render 'shared/manage_cars/car_numgz'}".html_safe, {},  class: "form-control"  %>
+              </div>
+            </div>
+        <% end %>
+        <% if current_user.area == "温州区" %>
+            <div class="form-group ">
+              <label for="inputName" class="col-lg-2 control-label">车牌号</label>
+              <div class="col-lg-8">
+                <%= f.select :car_number,"#{render 'shared/manage_cars/car_numwz'}".html_safe, {},  class: "form-control"  %>
+              </div>
+            </div>
+        <% end %>
+        <div class="form-group ">
+          <label for="inputName" class="col-lg-2 control-label">维修保养明细</label>
+          <div class="col-lg-8">
+            <%= f.text_area :fix_detail, class: "form-control", placeholder: "维修保养明细" %>
+          </div>
+        </div>
+        <div class="form-group ">
+          <label for="inputName" class="col-lg-2 control-label">维修保养时间</label>
+          <div class="col-lg-8">
+            <%= f.date_select :fix_time, class: "form-control"%>
+          </div>
+        </div>
+        <div class="form-group ">
+          <label for="inputName" class="col-lg-2 control-label">花费</label>
+          <div class="col-lg-8">
+            <%= f.text_field :cost, class: "form-control"%>
+          </div>
+        </div>
+        <div style="height: 30px"></div>
+        <div class="form-group">
+          <div class="col-lg-4"></div>
+          <div class="col-lg-2">
+            <%= f.submit "提交", class: "btn btn-primary btn-block " %>
+          </div>
+          <div class="col-lg-2">
+            <%= link_to '返回', maintains_path ,class: "btn btn-default btn-block " %>
+          </div>
+        </div>
+    <% end %>

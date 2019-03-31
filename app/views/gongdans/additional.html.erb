@@ -1,0 +1,143 @@
+<%= render 'shared/it/it_nav' %>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-11">
+      <%= bootstrap_flash %>
+<%= form_for @gongdan,html: {class: "form-horizontal"} do |f| %>
+    <% if @gongdan.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@gongdan.errors.count, "error") %> prohibited this gongdan from being saved:</h2>
+
+          <ul>
+            <% @gongdan.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+    <%= f.hidden_field :creator %>
+    <%= f.hidden_field :area %>
+    <%= f.hidden_field :state %>
+    <%= f.hidden_field :flag %>
+    <%= f.hidden_field :number %>
+    <%= f.hidden_field :appoint_department %>
+    <%= f.hidden_field :appoint_worker %>
+    <%= f.hidden_field :build_way %>
+    <fieldset>
+      <legend>补录工单</legend>
+      <div class="form-group">
+        <label for="inputTopic" class="col-lg-2 control-label">主题</label>
+        <div class="col-lg-10">
+          <%= f.text_field :title, class: "form-control", id: "inputTopic", placeholder: "主题" %>
+        </div>
+      </div>
+      <div class="form-group">
+         <label for="select" class="col-lg-2 control-label">服务需求部门</label>
+            <div class="col-lg-10">
+              <%= f.select :department, "#{render 'shared/pa/department'}".html_safe, {}, class: "form-control" %>
+            </div>
+      </div>
+      <div class="form-group">
+        <label for="inputSUser" class="col-lg-2 control-label">服务需求人</label>
+        <div class="col-lg-10">
+          <%= f.text_field :demander, class: "form-control", id: "inputSUser", placeholder: "服务需求人" %>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-lg-2 control-label">紧急程度</label>
+        <div class="col-lg-10">
+          <div class="radio">
+            <label>
+              <%= f.radio_button(:emergent, "普通") %>普通
+            </label>
+          </div>
+          <div class="radio">
+            <label>
+              <%= f.radio_button(:emergent, "紧急") %>紧急
+            </label>
+          </div>
+          <div class="radio">
+            <label>
+              <%= f.radio_button(:emergent, "非常紧急") %>非常紧急
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="textArea" class="col-lg-2 control-label">任务描述</label>
+        <div class="col-lg-10">
+          <%= f.text_area :description, rows: 3, id: "textArea", class: "form-control" %>
+          <span class="help-block">可简要描述您的问题</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-lg-2 control-label">故障截图上传</label>
+        <div class="col-lg-10">
+          <%= image_tag(@gongdan.image_url(:big)) if @gongdan.image? %>
+          <%= f.file_field :image %>
+          <%= f.hidden_field :image_cache %>
+          <span class="help-block">如果有故障截图请,请上传!</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputSUser" class="col-lg-2 control-label">受理时间</label>
+        <div class="col-lg-10">
+          <%= f.datetime_select :accept_time, class: "form-control"%>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputSUser" class="col-lg-2 control-label">完成时间</label>
+        <div class="col-lg-10">
+          <%= f.datetime_select :finish_time, class: "form-control" %>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="textArea" class="col-lg-2 control-label">处理过程描述</label>
+        <div class="col-lg-10">
+          <%= f.text_area :description, rows: 3, id: "textArea", class: "form-control" %>
+          <span class="help-block">可简要描述处理过程</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="select" class="col-lg-2 control-label">问题属性</label>
+        <div class="col-lg-10">
+          <%= f.select :category, "#{render 'shared/pa/category'}".html_safe, {}, {class: "form-control" }%>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-lg-2 control-label">是否加入经验库</label>
+        <div class="col-lg-10">
+          <div class="radio">
+            <label>
+              <%= f.radio_button(:experience_base, "no") %>否
+            </label>
+          </div>
+          <div class="radio">
+            <label>
+              <%= f.radio_button(:experience_base, "yes") %>是
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-lg-2 control-label">故障处理截图上传</label>
+        <div class="col-lg-10">
+          <%= image_tag(@gongdan.avatar_url(:big)) if @gongdan.avatar? %>
+          <%= f.file_field :avatar %>
+          <%= f.hidden_field :avatar_cache %>
+          <span class="help-block">如果有故障处理截图请,请上传!</span>
+        </div>
+      </div>
+      
+      <br/>
+      <div class="form-group">
+        <div class="col-lg-10 col-lg-offset-2">
+          <%= f.submit "提交", class: "btn btn-primary " %>
+          <%= link_to '返回', list_path, class: "btn btn-default" %>
+        </div>
+      </div>
+    </fieldset>
+<% end %>
+    </div>
+  </div>
+</div>

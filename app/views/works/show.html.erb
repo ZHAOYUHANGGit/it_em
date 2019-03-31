@@ -1,0 +1,93 @@
+<%= render 'shared/manage_cars/mcnav' %>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8">
+      <%= bootstrap_flash %>
+      <p id="notice"><%= notice %></p>
+      <div class="alert alert-dismissable alert-info">
+        <strong><i class="icon-bell"></i>查看加油清单</strong>
+      </div>
+      <div class="form-group">
+        <label class="col-lg-2 control-label text-info">车辆名称:</label>
+        <label class="control-label"><strong><%= @work.car_name %></strong></label>
+      </div>
+      <div class="form-group">
+        <label class="col-lg-2 control-label text-info">车牌号码：</label>
+        <label class="control-label"><strong><%= @work.car_number %></strong></label>
+      </div>
+      <div class="form-group">
+        <label class="col-lg-2 control-label text-info">驾驶员:</label>
+        <label class="control-label"><strong><%= @work.driver_name %></strong></label>
+      </div>
+      <% if @work.flag == nil %>
+       <div class="form-group">
+        <label class="col-lg-2 control-label text-info">服务需求部门:</label>
+        <label class="control-label"><strong><%= @work.department %></strong></label>
+      </div>
+      <div class="form-group">
+        <label class="col-lg-2 control-label text-info">起始地点:</label>
+        <label class="control-label"><strong><%= @work.start_address %></strong></label>
+      </div>
+      <div class="form-group">
+        <label class="col-lg-2 control-label text-info">终止地点:</label>
+        <label class="control-label"><strong><%= @work.end_address %></strong></label>
+      </div>
+      <div class="form-group">
+        <label class="col-lg-2 control-label text-info">起始公里数:</label>
+        <label class="control-label"><strong><%= @work.start_k %></strong></label>
+      </div>
+      <div class="form-group">
+        <label class="col-lg-2 control-label text-info">终止公里数:</label>
+        <label class="control-label"><strong><%= @work.end_k %></strong></label>
+      </div>
+      <div class="form-group">
+        <label class="col-lg-2 control-label text-info">过路费:</label>
+        <label class="control-label"><strong><%= @work.tolls %></strong></label>
+      </div>
+      <div class="form-group">
+        <label class="col-lg-2 control-label text-info">停车费:</label>
+        <label class="control-label"><strong><%= @work.parking_fees %></strong></label>
+      </div>
+      <% end %>
+      <% if @work.work_time != nil %>
+      <div class="form-group">
+        <label class="col-lg-2 control-label text-info">工作时间:</label>
+        <label class="control-label"><strong><%= @work.work_time %></strong></label>
+      </div>
+      <% end %>
+      <% if @work.s_time != nil %>
+      <div class="form-group">
+        <label class="col-lg-2 control-label text-info">开始时间:</label>
+        <label class="control-label"><strong><%= @work.s_time %></strong></label>
+      </div>
+      <div class="form-group">
+        <label class="col-lg-2 control-label text-info">结束时间:</label>
+        <label class="control-label"><strong><%= @work.e_time %></strong></label>
+      </div>
+      <% end %>
+      <% if @work.flag == nil %>
+      <div class="form-group">
+        <label class="col-lg-2 control-label text-info">备注:</label>
+        <label class="control-label"><strong><%= @work.remarks %></strong></label>
+      </div>
+      <% end %>
+      <div class="form-group">
+        <label class="col-lg-2 control-label text-info">所属区域:</label>
+        <label class="control-label"><strong><%= @work.area %></strong></label>
+      </div>
+      <div class="form-group">
+        <div class="col-lg-4"></div>
+        <% if current_user.name == "关志军" %>
+          <% if @work.flag == nil %>
+            <%= link_to '修改', edit_work_path(@work),class:"btn btn-warning " %>
+          <% end %>
+          <% if @work.flag == 1 %>
+            <%= link_to '修改', edit_oil_path(@work),class:"btn btn-warning " %>
+          <% end %>
+        <% end %>
+        <%= link_to '返回', works_path,class:"btn btn-default " %>
+      </div>
+
+    </div>
+  </div><!--/row-->
+</div> <!-- /container -->

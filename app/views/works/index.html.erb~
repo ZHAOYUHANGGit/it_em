@@ -1,0 +1,67 @@
+<%= render 'shared/manage_cars/mcnav' %>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-11">
+      <%= bootstrap_flash %>
+      <p id="notice"><%= notice %></p>
+      <div class="alert alert-dismissable alert-success">
+        <strong><i class="icon-list"></i> 日常工作列表!</strong>
+      </div>
+      <div class="col-lg-8">
+        <%= link_to '新建工作表', new_work_path,class: "btn btn-primary" %>
+      </div>
+      <div class="col-lg-4">
+        <%= form_tag("/works",method: "get") do %>
+            <%= label_tag(:q, "搜索:") %>
+            <%= text_field_tag(:q) %>
+            <%= submit_tag("确定") %>
+        <% end %>
+      </div>
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>车名</th>
+            <th>驾驶员</th>
+            <th>服务部门</th>
+            <th>起始地点</th>
+            <th>终止地点</th>
+            <th>起始公里数</th>
+            <th>终止公里数</th>
+            <th>过路费</th>
+            <th>工作时间</th>
+            <th>所属区域</th>
+            <th>操作按钮</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @works.each do |work| %>
+            <tr >
+              <td><%= work.id  %></td>
+              <td><%= work.car_name %></td>
+              <td><%= work.driver_name %></td>
+              <td><%= truncate(work.department,length:10) %></td>
+              <td><%= truncate(work.start_address,length:10) %></td>
+              <td><%= truncate(work.end_address,length:10) %></td>
+              <td><%= work.start_k %></td>
+              <td><%= work.end_k %></td>
+              <td><%= work.tolls %></td>
+              <td><%= work.work_time %></td>
+              <td><%= work.area %></td>
+              <td>
+                <%= link_to '查看', work,class: "btn btn-info" %>
+                <% if current_user.name == "关志军" %>
+                  <%= link_to '修改', edit_work_path(work),class:"btn btn-warning" %>
+                  <%= link_to '删除', work,class:"btn btn-danger", method: :delete, data: { confirm: '确定要删除?' } %>
+                <% end %>
+              </td>
+
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <%= paginate @works %>
+      <br>
+    </div>
+  </div><!--/row-->
+</div> <!-- /container -->

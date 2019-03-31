@@ -1,0 +1,18 @@
+
+          <h2><i class="icon-edit"></i>编辑任务工单</h2>
+
+            <%= render 'manager_form' %>
+
+
+<script type="text/javascript">
+    $(window).on('load', function () {
+
+        $('.selectpicker').selectpicker({
+            'selectedText': 'cat'
+        });
+
+        // $('.selectpicker').selectpicker('hide');
+    });
+</script>
+
+

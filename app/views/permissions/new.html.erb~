@@ -1,0 +1,5 @@
+<legend>新建权限</legend>
+
+<%= render 'form' %>
+
+

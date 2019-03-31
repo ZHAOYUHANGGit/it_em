@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  number: 1
+  title: MyString
+  creator: MyString
+  department: MyString
+  area: MyString
+  demander: MyString
+  file: MyString
+  emergent: MyString
+
+two:
+  number: 1
+  title: MyString
+  creator: MyString
+  department: MyString
+  area: MyString
+  demander: MyString
+  file: MyString
+  emergent: MyString

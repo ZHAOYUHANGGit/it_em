@@ -1,0 +1,21 @@
+<legend>查看权限信息</legend>
+<div class="form-group">
+  <label class="col-lg-5 control-label text-info">动作:</label>
+  <label class="control-label"><strong><%= @permission.action %></strong></label>
+</div>
+<div class="form-group">
+  <label class="col-lg-5 control-label text-info">科目:</label>
+  <label class="control-label"><strong><%= @permission.subject %></strong></label>
+</div>
+<div class="form-group">
+  <label class="col-lg-5 control-label text-info">描述:</label>
+  <label class="control-label"><strong><%= @permission.description %></strong></label>
+</div>
+<div class="form-group">
+  <div class="col-lg-10 col-lg-offset-2">
+    <%= link_to '修改', edit_permission_path,class:"btn  btn-warning",style: "color:white" %>
+    <%= link_to '返回',  permissions_path, class: "btn btn-default " %>
+  </div>
+</div>
+
+

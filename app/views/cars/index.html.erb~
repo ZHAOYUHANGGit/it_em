@@ -1,0 +1,51 @@
+<%= render 'shared/manage_cars/mcnav' %>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-11">
+      <%= bootstrap_flash %>
+      <p id="notice"><%= notice %></p>
+      <div class="alert alert-dismissable alert-success">
+        <strong><i class="icon-list"></i> 车辆列表!</strong>
+      </div>
+      <% if current_user.name == "关志军" %>
+      <%= link_to '新建车辆信息', new_car_path, class:"btn btn-primary" %>
+      <% end %>
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>车辆名称</th>
+            <th>车牌号码</th>
+            <th>驾驶员</th>
+            <th>燃料</th>
+            <th>所属区域</th>
+            <th>购买时间</th>
+            <th>车辆状态</th>
+            <th >操作按钮</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @cars.each do |car| %>
+            <tr >
+              <td><%= car.name %></td>
+              <td><%= car.number %></td>
+              <td><%= car.driver_name %></td>
+              <td><%= car.fuel %></td>
+              <td><%= car.area %></td>
+              <td><%= car.buy_time %></td>
+              <td><%= car.state %></td>
+              <td>
+                <%= link_to '查看', car, class:"btn btn-info" %>
+              <% if current_user.name == "关志军" %>
+                <%= link_to '修改', edit_car_path(car), class:"btn btn-warning" %>
+                <%= link_to '删除', car,class:"btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
+              <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <%= paginate @works %>
+      <br>
+    </div>
+  </div><!--/row-->
+</div> <!-- /container -->

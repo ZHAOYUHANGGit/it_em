@@ -1,0 +1,9 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "Exports") do |sheet|
+	sheet.add_row ["工单编号","工单主题","处理人","服务需求部门","服务及时性","服务质量","服务态度","意见建议"]
+    @gongdans.each do |d|
+     	sheet.add_row [d.number, d.title, d.appoint_worker, d.department,d.e_timeliness, d.e_quality, d.e_attitude, d.e_improvement]
+    end
+
+end
+

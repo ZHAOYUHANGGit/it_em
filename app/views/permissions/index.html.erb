@@ -1,0 +1,35 @@
+<%= render 'shared/it/it_nav' %>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-11">
+      <%= bootstrap_flash %>
+<%= link_to '新建权限', new_permission_path,class: "btn btn-primary",style: "color:white;" %>
+<table class="table table-striped table-hover ">
+  <thead>
+    <tr>
+      <th>动作</th>
+      <th>科目</th>
+      <th>描述</th>
+      <th>操作按钮</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @permissions.each do |permission| %>
+      <tr>
+        <td><%= permission.action %></td>
+        <td><%= permission.subject %></td>
+        <td><%= permission.description %></td>
+        <td><%= link_to '查看', permission,class:"btn btn-info",style: "color:white" %></td>
+        <td><%= link_to '修改', edit_permission_path(permission),class:"btn  btn-warning",style: "color:white" %></td>
+        <td><%= link_to '删除', permission, method: :delete, data: { confirm: '确定要删除?' },class:"btn  btn-danger",style: "color:white" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,119 @@
+<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+<script type="text/javascript">
+    var gongdan_appoint_workerjson = '{'
+            +   '"gongdan_appoint_department" : ['
+            +      '{"id" : "系统技术组", "name" : "系统技术组"},'
+            +      '{"id" : "数据稽查组", "name" : "数据稽查组"},'
+            +      '{"id" : "网络技术组", "name" : "网络技术组"},'
+            +      '{"id" : "运维支持组", "name" : "运维支持组"},'
+            +      '{"id" : "软件开发组", "name" : "软件开发组"},'
+            +      '{"id" : "系统培训组", "name" : "系统培训组"},'
+            +      '{"id" : "广州IT部", "name" : "广州IT部"},'
+            +      '{"id" : "甘宁IT部", "name" : "甘宁IT部"},'
+            +      '{"id" : "武威IT部", "name" : "武威IT部"}'
+            +   '],'
+            +   '"gongdan_appoint_worker" : ['
+            +      '{"cid" : "系统技术组", "id" : "冯兴", "name":"冯兴"},'
+            +      '{"cid" : "系统技术组", "id" : "赵宗仁", "name":"赵宗仁"},'
+            +      '{"cid" : "数据稽查组", "id" : "闫世红", "name":"闫世红"},'
+            +      '{"cid" : "网络技术组", "id" : "解安智", "name":"解安智"},'
+            +      '{"cid" : "运维支持组", "id" : "王家澍", "name":"王家澍"},'
+            +      '{"cid" : "软件开发组", "id" : "张音财", "name":"张音财"},'
+            +      '{"cid" : "软件开发组", "id" : "王玉萍", "name":"王玉萍"},'
+            +      '{"cid" : "系统培训组", "id" : "应芳", "name":"应芳"},'
+            +      '{"cid" : "广州IT部", "id" : "覃运贵", "name":"覃运贵"},'
+            +      '{"cid" : "广州IT部", "id" : "常伟民", "name":"常伟民"},'
+            +      '{"cid" : "甘宁IT部", "id" : "赵岩", "name":"赵岩"},'
+            +      '{"cid" : "甘宁IT部", "id" : "赵一超", "name":"赵一超"},'
+            +      '{"cid" : "武威IT部", "id" : "王凯东", "name":"王凯东"}'
+            +   '],'
+
+            +'}';
+    ;(function($, window, document, undefined){
+        $.fn.showMember = function(opt){
+            this.defaults = {
+                'gongdan_appoint_workerjson'          : gongdan_appoint_workerjson,     //json字符串变量名
+                'defaultShow'       : false,        //市、县是否显示,默认不显示    
+                'defaultMember'       : [0,0]       //默认城市，对应id
+            };
+            this.options = $.extend({}, this.defaults, opt);
+
+            var oMemberJson = eval('('+this.options.gongdan_appoint_workerjson+')'),
+                    oTeam = $('#gongdan_appoint_department',this),
+                    oMember = $('#gongdan_appoint_worker',this),
+                    gongdan_appoint_departments = oMemberJson.gongdan_appoint_department,
+                    gongdan_appoint_workers = oMemberJson.gongdan_appoint_worker,
+                    countys = oMemberJson.county;
+
+            //创建省
+            this.creatTeam = function(){
+                var html = '';
+                for(var i=0; i<gongdan_appoint_departments.length; i++){
+                    html += '<option value='+gongdan_appoint_departments[i].id+'>'+gongdan_appoint_departments[i].name+'</option>';
+                }
+                oTeam.append(html);
+            };
+
+            this.creat = function(){
+                oTeam.html('<option value="0">选择组别</option>');
+                this.creatTeam();
+                if(this.options.defaultShow){
+                    oMember.show();
+                    oCounty.show();
+                    oMember.html('<option value="0">选择人员</option>');
+
+                };
+                this.defaultMember();
+                this.checkTeam();
+
+            };
+
+            //默认城市
+            this.defaultMember = function(){
+                if(this.options.defaultMember.toString() == '0,0'){
+                    return;
+                };
+
+                var optionsMember = '';
+                for(var i=0; i<gongdan_appoint_departments.length; i++){
+                    if(gongdan_appoint_departments[i].id == this.options.defaultMember[0]){
+                        oTeam.val(gongdan_appoint_departments[i].id);
+                        for(var j=0; j<gongdan_appoint_workers.length; j++){
+                            if(gongdan_appoint_workers[j].cid == gongdan_appoint_departments[i].id){
+                                optionsMember += '<option value='+gongdan_appoint_workers[j].id+'>'+gongdan_appoint_workers[j].name+'</option>'
+                            }
+                        }
+                        oMember.append(optionsMember).show();
+                    }
+                };
+
+
+            }
+
+
+            this.checkTeam = function(){
+                oTeam.bind('change',function(){
+                    var html = '<option value="0">选择人员</option>';
+                    var val = $(this).val();
+                    for(var i=0; i<gongdan_appoint_workers.length; i++){
+                        if(gongdan_appoint_workers[i].cid == val){
+                            html += '<option value='+gongdan_appoint_workers[i].id+'>'+gongdan_appoint_workers[i].name+'</option>'
+                        }
+                    }
+                    oMember.html(html).show();
+
+                })
+            };
+
+
+
+            return this.creat();
+        }
+    }(jQuery, window, document))
+
+    $(function(){
+        $('#selectItem').showMember({
+            "defaultMember" : [0,5]
+        });
+    })
+</script>

@@ -1,0 +1,46 @@
+<%= render 'shared/manage_cars/mcnav' %>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8">
+      <%= bootstrap_flash %>
+      <p id="notice"><%= notice %></p>
+      <div class="alert alert-dismissable alert-info">
+        <strong><i class="icon-bell"></i>查看加油卡信息！</strong>
+      </div>
+      <div class="form-group">
+        <label class="col-lg-2 control-label text-info">期初结余:</label>
+        <label class="control-label"><strong><%= @oil_card.l_balance %></strong></label>
+      </div>
+      <div class="form-group">
+        <label class="col-lg-2 control-label text-info">本期充值：</label>
+        <label class="control-label"><strong><%=  @oil_card.recharge %></strong></label>
+      </div>
+      <div class="form-group">
+        <label class="col-lg-2 control-label text-info">充值时间：</label>
+        <label class="control-label"><strong><%=  @oil_card.recharge_time %></strong></label>
+      </div>
+      <div class="form-group">
+        <label class="col-lg-2 control-label text-info">本期花费：</label>
+        <label class="control-label"><strong><%=  @oil_card.spend %></strong></label>
+      </div>
+      <div class="form-group">
+        <label class="col-lg-2 control-label text-info">期末结余：</label>
+        <label class="control-label"><strong><%=  @oil_card.l_balance + @oil_card.recharge - @oil_card.spend %></strong></label>
+      </div>
+      <div class="form-group">
+        <label class="col-lg-2 control-label text-info">所属区域：</label>
+        <label class="control-label"><strong><%=  @oil_card.area %></strong></label>
+      </div>
+
+      <div class="form-group">
+        <div class="col-lg-4"></div>
+        <% if current_user.name == "关志军" %>
+         <%= link_to '修改', edit_oil_card_path(@oil_card),class:"btn btn-warning " %>
+        <% end %>
+         <%= link_to '返回', oil_cards_path,class:"btn btn-default " %>
+      </div>
+    </div>
+  </div><!--/row-->
+</div> <!-- /container -->
+
+

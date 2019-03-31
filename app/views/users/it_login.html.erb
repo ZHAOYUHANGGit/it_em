@@ -1,0 +1,44 @@
+<%= render 'shared/it/it_nav' %>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-11">
+      <%= bootstrap_flash %>
+      <div class="col-lg-4"></div>
+      <%= form_tag "/create_it_login_session" do %>
+      <div class="col-lg-5">
+      <form class="form-horizontal">
+        <fieldset>
+          <legend>IT服务平台登陆界面!</legend>
+          <div class="form-group">
+            <div class="form-group has-success">
+              <label class="control-label" for="inputSuccess">用户名</label>
+              <%= text_field_tag :name, params[:name] , class: "form-control", id: "inputName", placeholder: "用户名" %>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="form-group has-success">
+              <label class="control-label" for="inputSuccess">密码</label>
+              <%= password_field_tag :password, params[:password], class: "form-control", id: "inputPassword", placeholder: "密码" %>
+            </div>
+          </div>
+          <div class="form-group">
+              <div class="checkbox">
+                <label>
+                  <%= check_box_tag :jizh, 1, params[:remember_me] %>
+                  <%= label_tag "记住我" %>
+                </label>
+              </div>
+          </div>
+          <div class="form-group">
+            <div class="col-lg-10 col-lg-offset-2">
+              <button type="reset" class="btn btn-default">取消</button>
+              <%= submit_tag "登录", :class => "btn btn-primary" %>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+      </div>
+      <% end %>
+    </div>
+  </div><!--/row-->
+</div> <!-- /container -->

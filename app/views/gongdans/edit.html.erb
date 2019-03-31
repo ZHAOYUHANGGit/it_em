@@ -1,0 +1,119 @@
+<%= render 'shared/it/it_nav' %>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-11">
+				<%= bootstrap_flash %>
+					<div class="row">
+						<div class="col-lg-6">
+							<legend class="text-muted">工单信息-information</legend>
+							<div class="form-group">
+								<label class="col-lg-5 control-label text-info">任务工单编号:</label>
+								<label class="control-label"><strong><%= @gongdan.number %></strong></label>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-5 control-label text-info">任务工单主题:</label>
+								<label class="control-label"><strong><%= @gongdan.title %></strong></label>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-5 control-label text-info">任务工单建单人:</label>
+								<label class="control-label"><strong><%= @gongdan.creator %></strong></label>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-5 control-label text-info">服务需求部门:</label>
+								<label class="control-label"><strong><%= @gongdan.department %></strong></label>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-5 control-label text-info">服务需求联系人:</label>
+								<label class="control-label"><strong><%= @gongdan.demander %></strong></label>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-5 control-label text-info">工单紧急程度:</label>
+								<label class="control-label"><strong><%= @gongdan.emergent %></strong></label>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-5 control-label text-info">工单指派组别:</label>
+								<label class="control-label"><strong><%= @gongdan.appoint_department %></strong></label>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-5 control-label text-info">工单指派人:</label>
+								<label class="control-label"><strong><%= @gongdan.appoint_worker %></strong></label>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-5 control-label text-info">任务工单描述:</label>
+								<label class="control-label"><strong><%= @gongdan.description %></strong></label>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-5 control-label text-info">问题属性:</label>
+								<label class="control-label"><strong><%= @gongdan.category %></strong></label>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-5 control-label text-info">工单处理过程:</label>
+								<label class="control-label"><strong><%= @gongdan.processing_procedure %></strong></label>
+							</div>
+							<div class="form-group">
+								<%= link_to '<i class="icon-share-alt"></i>详情'.html_safe, @gongdan, class: "btn btn-info btn-block" %>
+							</div>
+						</div>
+
+						<div class="col-lg-6">
+
+							<%= form_for @gongdan, html: {class: "form-horizontal"} do |f| %>
+								<fieldset>
+									<legend class="text-primary">补录工单-时间修改</legend>
+
+									<div class="form-group has-success">
+										<label for="inputEmail" class="col-lg-3 control-label">分派时间</label>
+										<div class="col-lg-9">
+											<%= f.datetime_select :dispatch_time, class: "form-control", id: "inputProcessingProcedure" %>
+										</div>
+									</div>
+									<div class="form-group has-success">
+										<label class="col-lg-3 control-label">受理时间</label>
+										<div class="col-lg-9">
+											<%= f.datetime_select :accept_time, class: "form-control", id: "inputProcessingProcedure"%>
+										</div>
+									</div>
+									<div class="form-group has-success">
+										<label class="col-lg-3 control-label">完成时间</label>
+										<div class="col-lg-9">
+											<%= f.datetime_select :finish_time, class: "form-control", id: "inputProcessingProcedure" %>
+										</div>
+									</div>
+									<div class="form-group has-success">
+										<label class="col-lg-3 control-label">服务需求部门</label>
+										<div class="col-lg-9">
+											<%= f.text_field :department, class: "form-control"%>
+										</div>
+									</div>
+									<div class="form-group has-success">
+										<label class="col-lg-3 control-label">指派组别</label>
+										<div class="col-lg-9">
+											<%= f.text_field :appoint_department, class: "form-control"%>
+										</div>
+									</div>
+									<div class="form-group has-success">
+										<label class="col-lg-3 control-label">指派人</label>
+										<div class="col-lg-9">
+											<%= f.text_field :appoint_worker, class: "form-control"%>
+										</div>
+									</div>
+									<div class="form-group has-success">
+										<label class="col-lg-3 control-label">问题属性</label>
+										<div class="col-lg-9">
+											<%= f.text_field :category, class: "form-control"%>
+										</div>
+									</div>
+									<div class="form-group">
+										<%= f.submit( class: "btn btn-primary",onclick: "return validate();",value:"提交") do %>
+
+											<% end %>
+												<%= link_to '返回', list_path, class: "btn btn-default" %>
+									</div>
+								</fieldset>
+
+								<% end %>
+						</div>
+					</div>
+			</div>
+		</div>
+	</div>

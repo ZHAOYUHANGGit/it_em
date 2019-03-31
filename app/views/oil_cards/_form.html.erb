@@ -1,0 +1,39 @@
+
+<%= simple_form_for @oil_card,html: {class: "form-horizontal"} do |f| %>
+  <%= f.error_notification %>
+    <%= f.hidden_field :area %>
+    <div class="form-group ">
+      <label for="inputName" class="col-lg-2 control-label">上月结余</label>
+      <div class="col-lg-8">
+        <%= f.text_field :l_balance,class: "form-control", placeholder: "上月结余" %>
+      </div>
+    </div>
+    <div class="form-group ">
+      <label for="inputName" class="col-lg-2 control-label">本月充值</label>
+      <div class="col-lg-8">
+        <%= f.text_field :recharge,class: "form-control", placeholder: "本月充值" %>
+      </div>
+    </div>
+    <div class="form-group ">
+      <label for="inputName" class="col-lg-2 control-label">充值时间</label>
+      <div class="col-lg-8">
+        <%= f.date_select :recharge_time, class: "form-control" %>
+      </div>
+    </div>
+    <div class="form-group ">
+      <label for="inputName" class="col-lg-2 control-label">本月花费</label>
+      <div class="col-lg-8">
+        <%= f.text_field :spend,class: "form-control", placeholder: "本月花费" %>
+      </div>
+    </div>
+    <div style="height: 30px"></div>
+    <div class="form-group">
+      <div class="col-lg-4"></div>
+      <div class="col-lg-2">
+        <%= f.submit "提交", class: "btn btn-primary btn-block " %>
+      </div>
+      <div class="col-lg-2">
+        <%= link_to '返回',  oil_cards_path ,class: "btn btn-default btn-block " %>
+      </div>
+    </div>
+<% end %>

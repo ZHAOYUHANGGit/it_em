@@ -1,0 +1,2 @@
+module MCarsHelper
+end

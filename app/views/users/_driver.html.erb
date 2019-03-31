@@ -1,0 +1,53 @@
+
+
+
+
+<%= simple_form_for @user,html: {class: "form-horizontal"} do |f| %>
+    <fieldset>
+
+      <% if @user.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+            <ul>
+              <% @user.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+      <% end %>
+      <%= f.hidden_field :flag %>
+      <%= f.hidden_field :number %>
+      <div class="form-group">
+        <label for="inputName" class="col-lg-2 control-label">用户名</label>
+        <div class="col-lg-10">
+          <%= f.text_field :name, class: "form-control", id: "inputTopic", placeholder: "用户名" %>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputPassword" class="col-lg-2 control-label">密码</label>
+        <div class="col-lg-10">
+          <%= f.password_field :password, class: "form-control", id: "inputPassword", placeholder: "密码" %>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputPassword" class="col-lg-2 control-label">再次输入密码</label>
+        <div class="col-lg-10">
+          <%= f.password_field :password_confirmation, class: "form-control", id: "inputPassword", placeholder: "密码" %>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputPassword" class="col-lg-2 control-label">所在区域</label>
+        <div class="col-lg-10">
+          <%= f.select :area, "#{render 'shared/manage_cars/area'}".html_safe, {}, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-lg-10 col-lg-offset-2">
+          <%= f.submit "提交", class: "btn btn-primary " %>
+              <%= link_to '返回',  drivers_list_path, class: "btn btn-default" %>
+        </div>
+      </div>
+    </fieldset>
+<% end %>

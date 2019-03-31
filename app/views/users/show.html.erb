@@ -1,0 +1,55 @@
+<% if current_number != 11 %>
+  <%= render 'shared/it/it_nav' %>
+<% else %>
+  <%= render 'shared/manage_cars/mcnav' %>
+<% end %>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-11">
+      <div class="row">
+        <div class="col-lg-6">
+          <legend class="text-muted">用户详情-information</legend>
+          <div class="form-group">
+            <label class="col-lg-5 control-label text-info">用户名:</label>
+            <label class="control-label"><strong><%= @user.name %></strong></label>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-5 control-label text-info">Email:</label>
+            <label class="control-label"><strong><%= @user.email %></strong></label>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-5 control-label text-info">所在区域:</label>
+            <label class="control-label"><strong><%= @user.area %></strong></label>
+          </div>
+          <% if current_number != 11 %>
+          <div class="form-group">
+            <label class="col-lg-5 control-label text-info">所在部门:</label>
+            <label class="control-label"><strong><%= @user.department %></strong></label>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-5 control-label text-info">所在组别:</label>
+            <label class="control-label"><strong><%= @user.appoint_department %></strong></label>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-5 control-label text-info">角色:</label>
+            <label class="control-label"><strong><%= @user.number %></strong></label>
+          </div>
+          <% end %>
+          <div class="form-group">
+            <% if current_number != 11 %>
+            <div class="col-lg-10 col-lg-offset-2">
+              <%= link_to '返回',  users_path, class: "btn btn-default" %>
+            </div>
+            <% else %>
+            <div class="col-lg-10 col-lg-offset-2">
+              <%= link_to '返回',  drivers_list_path, class: "btn btn-default" %>
+            </div>
+             <% end %>
+          </div>
+        </div>
+      </div>
+      </br>
+      </br>
+    </div>
+  </div>
+</div>

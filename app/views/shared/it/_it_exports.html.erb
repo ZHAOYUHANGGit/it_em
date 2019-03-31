@@ -1,0 +1,22 @@
+<% if current_user %>
+    <div class="col-lg-3">
+      <div class="well sidebar-nav">
+        <h3>报表中心</h3>
+        <ul class="nav nav-list">
+          <li class="nav-header">建设中....</li>
+          <li><%= link_to "❤ IT维修服务表", exports_path  %></li>
+          <li><%= link_to "❤ 满意度调查表", evaluates_path  %></li>
+          <li><%= link_to "其他 ...", "#"  %></li>
+        </ul>
+      </div><!--/.well -->
+      <div class="well sidebar-nav">
+        <h3>图表中心</h3>
+        <ul class="nav nav-list">
+          <li><%= link_to "◆　服务次数及比例",  "/list/report"  %></li>
+          <li><%= link_to "◆　满意度回馈",  "/list/evaluation"  %></li>
+          <li><%= link_to "◆　人均维护次数",  "/list/attribute"  %></li>
+          <li><%= link_to "◆　数据对比分析", "/list/analysis"  %></li>
+        </ul>
+      </div>
+    </div><!--/span-->
+<% end %>

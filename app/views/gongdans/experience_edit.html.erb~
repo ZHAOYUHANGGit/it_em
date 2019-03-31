@@ -1,0 +1,196 @@
+<div class="row">
+  <div class="col-lg-6">
+    <legend class="text-muted">工单信息-information</legend>
+    <div class="form-group">
+      <label class="col-lg-5 control-label text-info">任务工单主题:</label>
+      <label class="control-label"><strong><%= @gongdan.title %></strong></label>
+    </div>
+    <div class="form-group">
+      <label class="col-lg-5 control-label text-info">任务工单建单人:</label>
+      <label class="control-label"><strong><%= @gongdan.creator %></strong></label>
+    </div>
+    <div class="form-group">
+      <label class="col-lg-5 control-label text-info">服务需求部门:</label>
+      <label class="control-label"><strong><%= @gongdan.department %></strong></label>
+    </div>
+    <div class="form-group">
+      <label class="col-lg-5 control-label text-info">服务需求联系人:</label>
+      <label class="control-label"><strong><%= @gongdan.demander %></strong></label>
+    </div>
+    <div class="form-group">
+      <label class="col-lg-5 control-label text-info">工单紧急程度:</label>
+      <label class="control-label"><strong><%= @gongdan.emergent %></strong></label>
+    </div>
+    <div class="form-group">
+      <label class="col-lg-5 control-label text-info">任务工单描述:</label>
+      <label class="control-label"><strong><%= @gongdan.description %></strong></label>
+    </div>
+    <div class="form-group">
+      <label class="col-lg-5 control-label text-info">工单处理组别:</label>
+      <label class="control-label"><strong><%= @gongdan.appoint_department %></strong></label>
+    </div>
+    <div class="form-group">
+      <label class="col-lg-5 control-label text-info">任务工单处理人:</label>
+      <label class="control-label"><strong><%= @gongdan.appoint_worker %></strong></label>
+    </div>
+    <div class="form-group">
+      <label class="col-lg-5 control-label text-info">工单协助处理人:</label>
+      <label class="control-label"><strong><%= @gongdan.helpers %></strong></label>
+    </div>
+    <div class="form-group">
+      <label class="col-lg-5 control-label text-info">工单处理过程:</label>
+      <label class="control-label"><strong><<%= @gongdan.processing_procedure %></strong></label>
+    </div>
+    <%= form_for(@gongdan) do |f| %>
+        <% if @gongdan.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@gongdan.errors.count, "error") %> prohibited this gongdan from being saved:</h2>
+              <ul>
+                <% @gongdan.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+        <% end %>
+        <% if can? :manager, Gongdan %>
+            <div class="form-group has-success">
+              <label class="control-label" for="inputWarning">是否移出经验库:</label>
+              <%= f.select :experience_base, "#{render 'shared/pa/yichujyk'}".html_safe, {}, {class: "form-control"} %>
+            </div>
+            <div class="form-group">
+              <%= f.button(type: "submit", class: "btn btn-success") do %>
+                  确定移出经验库
+              <% end %>
+            </div>
+        <% end %>
+        <% if can? :director, Gongdan %>
+            <div class="form-group has-success">
+              <label class="control-label" for="inputWarning">是否移出经验库:</label>
+              <%= f.select :experience_base, "#{render 'shared/pa/yichujyk'}".html_safe, {}, {class: "form-control"} %>
+            </div>
+            <div class="form-group">
+              <%= f.button(type: "submit", class: "btn btn-success") do %>
+                  确定移出经验库
+              <% end %>
+            </div>
+        <% end %>
+
+    <% end %>
+  </div>
+  <div class="col-lg-6">
+    <% if @gongdan.transfer_time == nil %>
+        <legend class="text-muted">工单进度时间－progress time</legend>
+        <% if @gongdan.file_time != nil %>
+            <div class="form-group">
+              <label class="col-lg-5 control-label text-info">工单流转时间:</label>
+              <label class="control-label"><strong><%= (@gongdan.file_time.to_i - @gongdan.created_at.to_i)/60 %></strong></label>
+            </div>
+        <% end %>
+        <% if @gongdan.dispatch_time != nil %>
+            <div class="form-group">
+              <label class="col-lg-5 control-label text-info">工单分派时间:</label>
+              <label class="control-label"><strong><%= (@gongdan.dispatch_time.to_i - @gongdan.created_at.to_i)/60 %></strong></label>
+            </div>
+        <% end %>
+        <% if @gongdan.finish_time != nil %>
+            <div class="form-group">
+              <label class="col-lg-5 control-label text-info">工单完成时间:</label>
+              <label class="control-label"><strong><%= (@gongdan.file_time.to_i - @gongdan.finish_time.to_i)/60 %></strong></label>
+            </div>
+        <% end %>
+        <% if @gongdan.file_time != nil %>
+            <div class="form-group">
+              <label class="col-lg-5 control-label text-info">工单评价时间:</label>
+              <label class="control-label"><strong><%= (@gongdan.file_time.to_i - @gongdan.finish_time.to_i)/60 %></strong></label>
+            </div>
+        <% end %>
+        <div class="form-group">
+          <label class="col-lg-5 control-label text-info">工单创建时间:</label>
+          <label class="control-label"><strong><%= @gongdan.created_at %></strong></label>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-5 control-label text-info">工单分派时间:</label>
+          <label class="control-label"><strong><%= @gongdan.dispatch_time %></strong></label>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-5 control-label text-info">工单完成时间:</label>
+          <label class="control-label"><strong><%= @gongdan.finish_time %></strong></label>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-5 control-label text-info">工单归档时间:</label>
+          <label class="control-label"><strong><%= @gongdan.file_time %></strong></label>
+        </div>
+
+    <% else %>
+
+        <legend class="text-primary">移交情况的工单进度－transfer progress</legend>
+        <% if @gongdan.file_time != nil %>
+            <div class="form-group">
+              <label class="col-lg-5 control-label text-info">工单流转时间:</label>
+              <label class="control-label"><strong><%= (@gongdan.file_time.to_i - @gongdan.created_at.to_i)/60 %></strong></label>
+            </div>
+        <% end %>
+        <% if @gongdan.dispatch_time != nil %>
+            <div class="form-group">
+              <label class="col-lg-5 control-label text-info">工单分派时间:</label>
+              <label class="control-label"><strong><%= (@gongdan.dispatch_time.to_i - @gongdan.created_at.to_i)/60 %></strong></label>
+            </div>
+        <% end %>
+        <% if @gongdan.transfer_time != nil %>
+            <div class="form-group">
+              <label class="col-lg-5 control-label text-info">工单移交时间:</label>
+              <label class="control-label"><strong><%= (@gongdan.transfer_time.to_i - @gongdan.dispatch_time.to_i)/60 %></strong></label>
+            </div>
+        <% end %>
+        <% if @gongdan.dispatch_time_second != nil %>
+            <div class="form-group">
+              <label class="col-lg-5 control-label text-info">再次分派时间:</label>
+              <label class="control-label"><strong><%= (@gongdan.dispatch_time_second.to_i - @gongdan.transfer_time.to_i)/60 %></strong></label>
+            </div>
+        <% end %>
+        <% if @gongdan.finish_time != nil %>
+            <div class="form-group">
+              <label class="col-lg-5 control-label text-info">工单完成时间:</label>
+              <label class="control-label"><strong><%= (@gongdan.finish_time.to_i - @gongdan.dispatch_time_second.to_i)/60 %></strong></label>
+            </div>
+        <% end %>
+        <% if @gongdan.file_time != nil %>
+            <div class="form-group">
+              <label class="col-lg-5 control-label text-info">工单评价时间:</label>
+              <label class="control-label"><strong><%= (@gongdan.file_time.to_i - @gongdan.finish_time.to_i)/60 %></strong></label>
+            </div>
+        <% end %>
+        <div class="form-group">
+          <label class="col-lg-5 control-label text-info">工单创建时间:</label>
+          <label class="control-label"><strong><%= @gongdan.created_at %></strong></label>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-5 control-label text-info">工单分派时间:</label>
+          <label class="control-label"><strong><%= @gongdan.dispatch_time %></strong></label>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-5 control-label text-info">工单移交时间:</label>
+          <label class="control-label"><strong><%= @gongdan.transfer_time %></strong></label>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-5 control-label text-info">再次分派时间:</label>
+          <label class="control-label"><strong><%= @gongdan.dispatch_time_second %></strong></label>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-5 control-label text-info">工单完成时间:</label>
+          <label class="control-label"><strong><%= @gongdan.finish_time %></strong></label>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-5 control-label text-info">工单归档时间:</label>
+          <label class="control-label"><strong><%= @gongdan.file_time %></strong></label>
+        </div>
+
+    <% end %>
+    <div class="form-group">
+      <%= link_to '返回', experience_base_path, class: "btn btn-default btn-block" %>
+    </div>
+  </div>
+</div>
+
+
+

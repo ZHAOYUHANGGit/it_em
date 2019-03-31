@@ -1,0 +1,8 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "Exports") do |sheet|
+	sheet.add_row ["id","车牌号码","驾驶员","需求部门","起始公里数","终止公里数","过路费","区域","油耗","工作时间","flag","停车费","起始时间","终止时间"]
+    @works.each do |w|
+     	sheet.add_row [w.id,w.car_number, w.driver_name, w.department, w.start_k,w.end_k, w.tolls, w.area,w.oils_amount,w.work_time,w.flag,w.parking_fees,w.s_time,w.e_time]
+    end
+
+end

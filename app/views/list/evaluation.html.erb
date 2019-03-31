@@ -1,0 +1,436 @@
+<%= render 'shared/it/it_nav' %>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-11">
+      <%= bootstrap_flash %>
+<div class="row">
+  <%= form_tag("/list/evaluation",method: "get") do %>
+      <div class="col-xs-12 col-sm-4">
+        <label for="id-date-picker-1">时间区域</label>
+        <div class="control-group">
+          <div class="controls">
+            <div class="input-prepend input-group">
+							<span class="input-group-addon">
+                              <i class="icon-calendar bigger-110"></i>
+                            </span>
+              <%= text_field_tag 'indate', '',name:"reservation", id:"reservation", class:"form-control" %>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('#reservation').daterangepicker(null,
+                        function(start, end, label) {
+                            console.log(start.toISOString(), end.toISOString(), label);
+                        });
+            });
+        </script>
+      </div>
+      <script src="/js/moment.js"></script>
+      <script src="/js/daterangepicker.js"></script>
+
+      <div class="col-xs-12 col-sm-4">
+        <label for="id-date-picker-1">关键字</label>
+        <%= text_field_tag 'keyword', '', class:"form-control", placeholder: "可按区域或处理组别或处理人的关键字进行搜索" %>
+      </div>
+      <div class="col-xs-12 col-sm-2">
+        <label for="id-date-picker-1"> </label>
+        <div class="input-group">
+          <%= button_tag(type: "submit", class: "btn btn-info ") do %>
+              <i class="icon-road bigger-110"></i>查询
+          <% end %>
+        </div>
+      </div>
+  <% end %>
+</div>
+<div style="height: 20px"></div>
+<div class="alert alert-dismissible alert-info">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <p><center>满意度总体分析</center></p>
+</div>
+<div id="main" style="height:400px"></div>
+<div class="row-fluid sortable">
+  <div class="box span12">
+    <div class="box-content">
+      <table class="table table-striped table-hover ">
+        <thead>
+        <tr>
+          <th>评价内容</th>
+          <th>满意程度</th>
+          <th>数量</th>
+          <th>满意程度</th>
+          <th>数量</th>
+          <th>满意程度</th>
+          <th>数量</th>
+          <th>满意程度</th>
+          <th>数量</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr >
+              <td>服务及时性</td>
+              <% count=1 %>
+              <% @gongdans_timeliness.each do |e_timeliness, gongdans| %>
+              <td >
+                <%= e_timeliness %>
+              </td>
+              <td >
+                <button type="button" class="btn btn-info" id="btn<%=count%>">
+                  <%= gongdans.size%>
+                </button>
+                <div class="modal" id="mymodal<%= count %>">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h4 class="modal-title">详情</h4>
+                      </div>
+                      <div class="modal-body">
+                        <table class="table table-bordered table-hover">
+                          <thead>
+                          <tr>
+                            <th>工单号</th>
+                            <th>主题</th>
+                            <th>处理人</th>
+                            <th>服务需求部门</th>
+                            <th>问题属性</th>
+                            <th>服务及时性</th>
+                            <th>服务态度</th>
+                            <th>服务质量</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <% gongdans.each do |g|  %>
+                              <tr>
+                                <td><%= g.number %></td>
+                                <td><%= g.title %></td>
+                                <td><%= g.appoint_worker %></td>
+                                <td><%= g.department %></td>
+                                <td><%= g.category %></td>
+                                <td><%= g.e_timeliness %></td>
+                                <td><%= g.e_attitude %></td>
+                                <td><%= g.e_quality %></td>
+                              </tr>
+                          <% end %>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                      </div>
+                    </div><!-- /.modal-content -->
+                  </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
+              </td>
+                  <script><!-- /.弹出框 -->
+                  $(function(){
+                      $("#btn<%=count%>").click(function(){
+                          $("#mymodal<%= count %>").modal("toggle");
+                      });
+                  });
+                  </script>
+              <% count += 1 %>
+              <% end %>
+            </tr >
+            <tr >
+              <td>服务态度</td>
+              <% a = 1 %>
+              <% @gongdans_attitude.each do |e_attitude, gongdans| %>
+                  <td >
+                    <%= e_attitude %>
+                  </td>
+                  <td >
+                    <button type="button" class="btn btn-info" id="attitude<%=a%>">
+                      <%= gongdans.size%>
+                    </button>
+                    <div class="modal" id="two<%= a %>">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h4 class="modal-title">详情</h4>
+                          </div>
+                          <div class="modal-body">
+                            <table class="table table-bordered table-hover">
+                              <thead>
+                              <tr>
+                                <th>工单号</th>
+                                <th>主题</th>
+                                <th>处理人</th>
+                                <th>服务需求部门</th>
+                                <th>问题属性</th>
+                                <th>服务及时性</th>
+                                <th>服务态度</th>
+                                <th>服务质量</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              <% gongdans.each do |g|  %>
+                                  <tr>
+                                    <td><%= g.number %></td>
+                                    <td><%= g.title %></td>
+                                    <td><%= g.appoint_worker %></td>
+                                    <td><%= g.department %></td>
+                                    <td><%= g.category %></td>
+                                    <td><%= g.e_timeliness %></td>
+                                    <td><%= g.e_attitude %></td>
+                                    <td><%= g.e_quality %></td>
+                                  </tr>
+                              <% end %>
+                              </tbody>
+                            </table>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                          </div>
+                        </div><!-- /.modal-content -->
+                      </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
+                  </td>
+                  <script><!-- /.弹出框 -->
+                  $(function(){
+                      $("#attitude<%=a%>").click(function(){
+                          $("#two<%= a %>").modal("toggle");
+                      });
+                  });
+                  </script>
+                  <% a += 1 %>
+              <% end %>
+            </tr>
+            <tr >
+              <td>服务质量</td>
+              <% b = 1 %>
+              <% @gongdans_quality.each do |e_quality, gongdans| %>
+                  <td >
+                    <%= e_quality %>
+                  </td>
+                  <td >
+                    <button type="button" class="btn btn-info" id="quality<%=b%>">
+                      <%= gongdans.size%>
+                    </button>
+                    <div class="modal" id="three<%= b %>">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h4 class="modal-title">详情</h4>
+                          </div>
+                          <div class="modal-body">
+                            <table class="table table-bordered table-hover">
+                              <thead>
+                              <tr>
+                                <th>工单号</th>
+                                <th>主题</th>
+                                <th>处理人</th>
+                                <th>服务需求部门</th>
+                                <th>问题属性</th>
+                                <th>服务及时性</th>
+                                <th>服务态度</th>
+                                <th>服务质量</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              <% gongdans.each do |g|  %>
+                                  <tr>
+                                    <td><%= g.number %></td>
+                                    <td><%= g.title %></td>
+                                    <td><%= g.appoint_worker %></td>
+                                    <td><%= g.department %></td>
+                                    <td><%= g.category %></td>
+                                    <td><%= g.e_timeliness %></td>
+                                    <td><%= g.e_attitude %></td>
+                                    <td><%= g.e_quality %></td>
+                                  </tr>
+                              <% end %>
+                              </tbody>
+                            </table>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                          </div>
+                        </div><!-- /.modal-content -->
+                      </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
+                  </td>
+                  <script><!-- /.弹出框 -->
+                  $(function(){
+                      $("#quality<%=b%>").click(function(){
+                          $("#three<%= b %>").modal("toggle");
+                      });
+                  });
+                  </script>
+              <% b += 1 %>
+              <% end %>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- end: box-content -->
+  </div>
+  <!-- end: box span12 -->
+</div>
+<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+
+<!-- ECharts单文件引入 -->
+<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+<script type="text/javascript">
+    // 路径配置
+    require.config({
+        paths: {
+            echarts: 'http://echarts.baidu.com/build/dist'
+        }
+    });
+
+    // 使用
+    require(
+            [
+                'echarts',
+                'echarts/chart/bar' // 使用柱状图就加载bar模块，按需加载
+            ],
+            function (ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('main'));
+
+                var option = {
+                    title : {
+                        text: '满意度回馈',
+                        subtext: ' '
+                    },
+                    tooltip : {
+                        trigger: 'axis'
+                    },
+                    legend: {
+                        data:['服务及时性', '服务态度', '服务质量']
+                    },
+                    toolbox: {
+                        show : true,
+                        feature : {
+                            mark : {show: true},
+                            dataView : {show: true, readOnly: false},
+                            magicType: {show: true, type: ['line', 'bar']},
+                            restore : {show: true},
+                            saveAsImage : {show: true}
+                        }
+                    },
+                    calculable : true,
+                    xAxis : [
+                        {
+                            type : 'value',
+                            boundaryGap : [0, 0]
+                        }
+                    ],
+                    yAxis : [
+                        {
+                            type : 'category',
+                            data : ['非常满意','满意','一般','不满意']
+                        }
+                    ],
+                    series : [
+                        {
+                            name:'服务及时性',
+                            type:'bar',
+                            data:[
+                                <% @gongdans_timeliness.each do |e_timeliness, gongdans| %>
+                                {value:<%= gongdans.size %>},
+                                <% end %>
+                            ]
+                        },
+                        {
+                            name:'服务态度',
+                            type:'bar',
+                            data:[
+                                <% @gongdans_attitude.each do |e_attitude, gongdans| %>
+                                {value:<%= gongdans.size %>},
+                                <% end %>
+                            ]
+                        },
+                        {
+                            name:'服务质量',
+                            type:'bar',
+                            data:[
+                                <% @gongdans_quality.each do |e_quality, gongdans| %>
+                                {value:<%= gongdans.size %>},
+                                <% end %>
+                            ]
+                        }
+                    ]
+                };
+
+                // 为echarts对象加载数据
+                myChart.setOption(option);
+            }
+    );
+</script>
+<div class="alert alert-dismissible alert-success">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <p><center>满意度个人分析</center></p>
+</div>
+<%= render 'shared/tablesorter' %>
+<table class="table table-bordered table-hover" id="sortTable">
+  <thead>
+    <tr>
+      <th>姓名</th>
+      <th>工单数量</th>
+      <th>服务及时性平均值</th>
+      <th>服务态度平均值</th>
+      <th>服务质量平均值</th>
+       <th>满意度平均值</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @gongdans_member.each do |appoiont_worker,gongdans| %>
+        <tr>
+          <td><%= gongdans.first.appoint_worker%></td>
+          <td><%= gongdans.size %></td>
+          <% digit = 0 %>
+          <% c = 0 %>
+          <% t = 0 %>
+          <% a = 0 %>
+          <% q = 0 %>
+          <% while digit < gongdans.size do %>
+              <% @list = gongdans[digit] %>
+              <% digit += 1 %>
+              <% if @list.e_timeliness == "非常满意★★★★★" %>
+                  <% timeliness = 5 %>
+              <% elsif @list.e_timeliness == "满意★★★★" %>
+                  <% timeliness = 4 %>
+              <% elsif @list.e_timeliness == "一般★★★" %>
+                  <% timeliness = 3 %>
+              <% else %>
+                  <% timeliness = 2 %>
+              <% end %>
+              <% if @list.e_attitude == "非常满意★★★★★" %>
+                  <% attitude = 5 %>
+              <% elsif @list.e_attitude == "满意★★★★" %>
+                  <% attitude = 4 %>
+              <% elsif @list.e_attitude == "一般★★★" %>
+                  <% attitude = 3 %>
+              <% else %>
+                  <% attitude = 2 %>
+              <% end %>
+              <% if @list.e_quality == "非常满意★★★★★" %>
+                  <% quality = 5 %>
+              <% elsif @list.e_quality == "满意★★★★" %>
+                  <% quality = 4 %>
+              <% elsif @list.e_quality == "一般★★★" %>
+                  <% quality = 3 %>
+              <% else %>
+                  <% quality = 2 %>
+              <% end %>
+              <% b = (timeliness + attitude + quality)/15.to_f %>
+              <% ti = timeliness/5.to_f %>
+              <% at = attitude/5.to_f %>
+              <% qu = quality/5.to_f %>
+              <% t += ti %>
+              <% a += at %>
+              <% q += qu %>
+              <% c += b %>
+          <% end %>　
+          <td><%= (t/gongdans.size*100).round.to_f.to_s + "%" %></td>
+          <td><%= (a/gongdans.size*100).round.to_f.to_s + "%" %></td>
+          <td><%= (q/gongdans.size*100).round.to_f.to_s + "%" %></td>
+          <td><%= (c/gongdans.size*100).round.to_f.to_s + "%" %></td>
+        </tr>
+    <% end %>
+  </tbody>
+</table> 
+    </div>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+<% if current_number != 11 %>
+    <%= render 'shared/it/it_nav' %>
+<% else %>
+    <%= render 'shared/manage_cars/mcnav' %>
+<% end %>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-11">
+      <%= bootstrap_flash %>
+
+      <legend>新建用户</legend>
+      <% if current_number != 11 %>
+          <%= render 'form' %>
+      <% else %>
+          <%= render 'driver' %>
+      <% end %>
+
+    </div>
+  </div><!--/row-->
+</div> <!-- /container -->

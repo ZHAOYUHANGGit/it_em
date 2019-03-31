@@ -1,0 +1,5 @@
+<legend>修改权限信息</legend>
+
+<%= render 'form' %>
+
+

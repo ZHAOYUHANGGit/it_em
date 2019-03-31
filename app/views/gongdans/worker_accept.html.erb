@@ -1,0 +1,79 @@
+<%= render 'shared/it/it_nav' %>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-11">
+      <%= bootstrap_flash %>
+<div class="row">
+  <div class="col-lg-1"></div>
+  <div class="col-lg-8">
+    <legend class="text-muted">工单受理－Please accept this gongdan!</legend>
+    <div class="form-group">
+      <label class="col-lg-5 control-label text-info">任务工单号:</label>
+      <label class="control-label"><strong><%= @gongdan.number %></strong></label>
+    </div>
+    <div class="form-group">
+      <label class="col-lg-5 control-label text-info">任务工单主题:</label>
+      <label class="control-label"><strong><%= @gongdan.title %></strong></label>
+    </div>
+    <div class="form-group">
+      <label class="col-lg-5 control-label text-info">任务工单建单人:</label>
+      <label class="control-label"><strong><%= @gongdan.creator %></strong></label>
+    </div>
+    <div class="form-group">
+      <label class="col-lg-5 control-label text-info">服务需求部门:</label>
+      <label class="control-label"><strong><%= @gongdan.department %></strong></label>
+    </div>
+    <div class="form-group">
+      <label class="col-lg-5 control-label text-info">服务需求联系人:</label>
+      <label class="control-label"><strong><%= @gongdan.demander %></strong></label>
+    </div>
+    <div class="form-group">
+      <label class="col-lg-5 control-label text-info">工单紧急程度:</label>
+      <label class="control-label"><strong><%= @gongdan.emergent %></strong></label>
+    </div>
+    <div class="form-group">
+      <label class="col-lg-5 control-label text-info">任务工单描述:</label>
+      <label class="control-label"><strong><%= @gongdan.description %></strong></label>
+    </div>
+    <div class="form-group">
+      <label class="col-lg-5 control-label text-info">工单处理组别:</label>
+      <label class="control-label"><strong><%= @gongdan.appoint_department %></strong></label>
+    </div>
+    <div class="form-group">
+      <label class="col-lg-5 control-label text-info">任务工单处理人:</label>
+      <label class="control-label"><strong><%= @gongdan.appoint_worker %></strong></label>
+    </div>
+    <div class="form-group">
+      <label class="col-lg-5 control-label text-info">工单协助处理人:</label>
+      <label class="control-label"><strong><%= @gongdan.helpers %></strong></label>
+    </div>
+
+    <%= form_for(@gongdan) do |f| %>
+        <% if @gongdan.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@gongdan.errors.count, "error") %> prohibited this gongdan from being saved:</h2>
+              <ul>
+                <% @gongdan.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+        <% end %>
+        <fieldset>
+          <%= f.hidden_field :accept_time %>
+          <%= f.hidden_field :state %>
+          <div class="form-group">
+            <%= f.button(type: "submit", class: "btn btn-success") do %>
+                受理此工单
+            <% end %>
+            <%= link_to '移交', worker_transfer_path ,class: "btn btn-warning " %>
+            <%= link_to '返回', list_path, class: "btn btn-default" %>
+          </div>
+        </fieldset>
+    <% end %>
+  </div>
+</div>
+    </div>
+  </div>
+</div>
+

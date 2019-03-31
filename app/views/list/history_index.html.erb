@@ -1,0 +1,80 @@
+<%= render 'shared/it/it_nav' %>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-11">
+      <div class="row-fluid sortable">
+        <div class="box span12">
+          <div class="alert alert-dismissible alert-success">
+            <h4>注意!</h4>
+            <p><i class="icon-bell"></i>&nbsp;已归档工单:以下任务工单已归档!</p>
+          </div>
+          <%= form_tag("/list/history_index",method: "get") do %>
+              <%= text_field_tag(:q) %>
+              <%= submit_tag("搜索") %>
+          <% end %>
+        <div class="box-content">
+          <table class="table table-striped table-hover ">
+              <thead>
+              <tr>
+               <th >工单号</th>
+               <th >主题</th>
+               <th >服务需求部门</th>
+               <th >地区</th>
+               <th >紧急程度</th>
+               <th >指派组别</th>
+               <th>指派人</th>
+               <th>归档时间</th>
+              <th>操作按钮</th>
+             </tr>
+              </thead>
+              <tbody>
+                <% @gongdans.each do |gongdan| %>
+                  <tr >
+                    <td >
+                      <%= gongdan.number %>
+                    </td>
+                    <td >
+                      <%= truncate(gongdan.title,length:10) %>
+                    </td>
+                    <td >
+                    <%= gongdan.department %>
+                    </td>
+                    <td >
+                    <%= gongdan.area %>
+                    </td>
+                    <td  >
+                    <%= gongdan.emergent %>
+                    </td>
+                    <td >
+                    <%= gongdan.appoint_department %>
+                    </td>
+                    <td>
+                    <%= gongdan.appoint_worker %>
+                    </td>
+                    <td>
+                    <%= gongdan.updated_at.strftime('%m-%d(%H:%M)').to_s %>
+                    </td>
+                    <td class="center">
+                      <%= link_to ' <i class="icon-search"></i>'.html_safe, gongdan_path(gongdan),class:"btn btn-success",style: "color:white" %>
+                      <% if can? :manager, Gongdan %> 
+                        <%= link_to ' <i class="icon-edit"></i>'.html_safe, edit_gongdan_path(gongdan),class:"btn btn-info",style: "color:white" %>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+           <%= paginate @gongdans %>
+          
+          </div>
+          <!-- end: box-content -->
+        </div>
+
+        <!-- end: box span12 -->
+      </div>
+    </div>
+  </div><!--/row-->
+
+</div> <!-- /container -->
+
+

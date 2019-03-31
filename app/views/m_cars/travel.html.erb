@@ -1,0 +1,77 @@
+<%= render 'shared/manage_cars/mcnav' %>
+<div style="height: 10px"></div>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-11">
+      <%= bootstrap_flash %>
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-heading">行驶历程及油耗汇总表</h3>
+        </div>
+        <div class="panel-body">
+          <div class="alert alert-dismissible alert-danger">
+            <p><i class="icon-bell"></i>&nbsp;<strong>表中行驶数为千米(Km),油量单位为公升(L),百公里油耗单位为公升(L)/100公里(Km)</strong></p>
+          </div>
+          <div class="row">
+            <%= form_tag("/m_cars/travel",method: "get") do %>
+                <%= render 'shared/manage_cars/time_area_cname' %>
+            <% end %>
+          </div>
+          <div style="height: 20px"></div>
+          <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+              <th>车牌号码</th>
+              <th>区域</th>
+              <th>期初公里数</th>
+              <th>期末公里数</th>
+              <th>实际行驶数</th>
+              <th>用油量</th>
+
+            </tr>
+            </thead>
+            <tbody>
+              <% @works_groups.each do |car_number, works| %>
+                <tr >
+                  <td><%= car_number %></td>
+                    <% @car_number = works.first %>
+                  <td><%= @car_number.area %></td>
+                  <td>
+                    <% @start_k = works.first %>
+                    <%= @start_k.start_k  %>
+                  </td>
+                  <td>
+                    <% @end_k = works.last %>
+                    <%= @end_k.end_k %>
+                  </td>
+                  <td>
+                    <% a = @end_k.end_k - @start_k.start_k  %>
+                    <%= a %>
+                  </td>
+                  <td><% digit =0 %>
+                    <% c = 0 %>
+                    <% while digit < works.size do %>
+                        <% @list = works[digit] %>
+                        <% @list.oils_amount %>
+                        <% digit += 1 %>
+                        <% b = @list.oils_amount %>
+                        <% c += b %>
+                    <% end %>
+                    <%= c %>
+
+                  </td>
+                </tr>
+              <% end %>
+                <tr>
+                  <td colspan="4"><strong><center>合计:</center></strong></td>
+                  <td><strong><%= @works.each.inject(0) {|s, t| s += t.end_k} - @works.each.inject(0) {|s, t| s += t.start_k} %></strong></td>
+                  <td><strong><%= @works.each.inject(0) {|s, t| s += t.oils_amount} %></strong></td>
+                </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </div>
+  </div><!--/row-->
+</div> <!-- /container -->

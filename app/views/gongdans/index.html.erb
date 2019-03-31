@@ -1,0 +1,91 @@
+<%= render 'shared/sidebar' %>
+
+<!-- start: Content -->
+<div id="content" class="span10">
+
+
+  <div class="row-fluid">
+
+  </div>
+  <h1>Listing Gongdans</h1>
+
+  <table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Creator</th>
+      <th>Department</th>
+      <th>Area</th>
+      <th>Demander</th>
+      <th>Emergent</th>
+      <th>Description</th>
+      <th>Appoint department</th>
+      <th>Appoint worker</th>
+      <th>State</th>
+      <th>Evaluate</th>
+      <th>Dispatch time</th>
+      <th>Dispatch time second</th>
+      <th>Transfer time</th>
+      <th>Finish time</th>
+      <th>Transger reson</th>
+      <th>Number</th>
+      <th>Appoint department again</th>
+      <th>Flag</th>
+      <th>E timeliness</th>
+      <th>E attitude</th>
+      <th>E quality</th>
+      <th>E improvement</th>
+      <th>Helpers</th>
+      <th>Processing procedure</th>
+      <th>Experience base</th>
+      <th>File time</th>
+      <th>Appoint worker again</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @gongdans.each do |gongdan| %>
+      <tr>
+        <td><%= gongdan.title %></td>
+        <td><%= gongdan.creator %></td>
+        <td><%= gongdan.department %></td>
+        <td><%= gongdan.area %></td>
+        <td><%= gongdan.demander %></td>
+        <td><%= gongdan.emergent %></td>
+        <td><%= gongdan.description %></td>
+        <td><%= gongdan.appoint_department %></td>
+        <td><%= gongdan.appoint_worker %></td>
+        <td><%= gongdan.state %></td>
+        <td><%= gongdan.evaluate %></td>
+        <td><%= gongdan.dispatch_time %></td>
+        <td><%= gongdan.dispatch_time_second %></td>
+        <td><%= gongdan.transfer_time %></td>
+        <td><%= gongdan.finish_time %></td>
+        <td><%= gongdan.transger_reson %></td>
+        <td><%= gongdan.number %></td>
+        <td><%= gongdan.appoint_department_again %></td>
+        <td><%= gongdan.flag %></td>
+        <td><%= gongdan.e_timeliness %></td>
+        <td><%= gongdan.e_attitude %></td>
+        <td><%= gongdan.e_quality %></td>
+        <td><%= gongdan.e_improvement %></td>
+        <td><%= gongdan.helpers %></td>
+        <td><%= gongdan.processing_procedure %></td>
+        <td><%= gongdan.experience_base %></td>
+        <td><%= gongdan.file_time %></td>
+        <td><%= gongdan.appoint_worker_again %></td>
+        <td><%= link_to 'Show', gongdan %></td>
+        <td><%= link_to 'Edit', edit_gongdan_path(gongdan) %></td>
+        <td><%= link_to 'Destroy', gongdan, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+  <%= link_to 'New Gongdan', new_gongdan_path %>
+  <br>
+</div>
+
+
+<%= render 'shared/footer' %>
+<%= render 'shared/js' %>

@@ -1,0 +1,42 @@
+
+
+<%= form_for(@permission) do |f| %>
+    <% if @permission.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@permission.errors.count, "error") %> prohibited this permission from being saved:</h2>
+
+          <ul>
+            <% @permission.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+  <fieldset>
+
+    <div class="form-group">
+      <label for="inputAction" class="col-lg-2 control-label">动作</label>
+      <div class="col-lg-10">
+        <%= f.text_field :action, class: "form-control", id: "inputAction", placeholder: "动作" %>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="select" class="col-lg-2 control-label">科目</label>
+      <div class="col-lg-10">
+        <%= f.select :subject, "#{render 'shared/pa/subject'}".html_safe, {}, class: "form-control" %>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputDescription" class="col-lg-2 control-label">描述</label>
+      <div class="col-lg-10">
+        <%= f.text_field :description, class: "form-control", id: "inputDescription", placeholder: "描述" %>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-lg-10 col-lg-offset-2">
+        <%= f.submit "提交", class: "btn btn-primary " %>
+        <%= link_to '返回',  permissions_path, class: "btn btn-default" %>
+      </div>
+    </div>
+  </fieldset>
+<% end %>
